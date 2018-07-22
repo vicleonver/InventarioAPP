@@ -1,0 +1,34 @@
+<table class="highlight responsive-table">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Dirección</th>
+      <th>Teléfono</th>
+      <th>Modificar</th>
+      <th>Eliminar</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of listaClientes">
+      <td> {{item.nombre}} </td>
+      <td> {{item.direccion}} </td>
+      <td> {{item.telefono}} </td>
+      <td> 
+        <!-- Modal Trigger -->
+        <a class="waves-effect waves-light btn" (click)="openModal()">Editar</a>
+ 
+        <!-- Modal Structure -->
+        <div id="modal1" class="modal bottom-sheet" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions">
+          <div class="modal-content">
+            <h4>Modificación de Cliente</h4>
+            <p>Aqui poner los datos de cliente para modificar en form</p>
+          </div>
+          <div class="modal-footer">
+            <a class="waves-effect waves-green btn-flat" (click)="closeModal()">Cerrar</a>
+            <a class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
