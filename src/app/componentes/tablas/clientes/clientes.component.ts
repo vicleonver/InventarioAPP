@@ -46,8 +46,6 @@ export class ClientesComponent implements OnInit {
     this.clienteTelefono = telefono;
     this.clienteCuit = cuit;
 
-    console.log(this.clienteNombre);
-    console.log('abre edicion')
   }
   guardarEdicion(id, nombre, direccion, telefono, cuit) {
     /* Armo registro a editar */
@@ -59,7 +57,7 @@ export class ClientesComponent implements OnInit {
       cuit: cuit
     }
     this.servicio.modificarCliente(this.registroCliente);
-    console.log(id, nombre);
+
     this.modalActions.emit({action: 'modal', params:['close']});
   }
   openModalEliminar(id, nombre) {
@@ -72,7 +70,7 @@ export class ClientesComponent implements OnInit {
     this.modalActions2.emit({action: 'modal', params: ['close']});
   }
   eliminarCliente(id) {
-    console.log(id.value);
+ 
     this.modalActions2.emit({action: 'modal', params: ['close']});
     this.servicio.borrarCliente(id);
   }
@@ -81,16 +79,14 @@ export class ClientesComponent implements OnInit {
     this.agregarClienteModal.emit({action: 'modal', params:['open']});
   }
   agregarCliente(nombre, direccion, telefono, cuit) {
-    console.log(nombre.value);
-    console.log(direccion.value, telefono.value);
-    console.log(cuit.value);.
+
     this.registroCliente = {
       nombre: nombre.value,
       direccion: direccion.value,
       telefono: telefono.value,
       cuit: cuit.value
     }
-    console.log(this.registroCliente);
+    
     this.servicio.agregarCliente(this.registroCliente);
     this.agregarClienteModal.emit({action: 'modal', params:['close']});
   }
