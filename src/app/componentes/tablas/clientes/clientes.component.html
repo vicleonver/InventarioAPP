@@ -4,6 +4,7 @@
       <th>Nombre</th>
       <th>Dirección</th>
       <th>Teléfono</th>
+      <th>CUIT</th>
       <th>Modificar</th>
       <th>Eliminar</th>
     </tr>
@@ -13,22 +14,102 @@
       <td> {{item.nombre}} </td>
       <td> {{item.direccion}} </td>
       <td> {{item.telefono}} </td>
+      <td> {{item.cuit}} </td>
       <td> 
-        <!-- Modal Trigger -->
-        <a class="waves-effect waves-light btn" (click)="openModal()">Editar</a>
+        <!-- Boton para editar -->
+        <a class="waves-effect waves-light btn" (click)="openModalEditar(item.id,
+                                                                         item.nombre, 
+                                                                         item.direccion, 
+                                                                         item.telefono, 
+                                                                         item.cuit)">Editar</a>
  
-        <!-- Modal Structure -->
-        <div id="modal1" class="modal bottom-sheet" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions">
+        <!-- Editar -->
+        <div id="modaleditar" class="modal" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions">
           <div class="modal-content">
-            <h4>Modificación de Cliente</h4>
-            <p>Aqui poner los datos de cliente para modificar en form</p>
+            <form class="col s12">
+              <div class="row">
+                <input type="hidden" #id value="{{clienteId}}">
+                <div class="input-field col s6">
+                  <input placeholder="Nombre Cliente" #nombre id="nombre" type="text" class="validate" value = "{{clienteNombre}}">
+                  <label for="nombre">Nombre / Razón Social</label>
+                </div>
+                <div class="input-field col s6">
+                    <input placeholder="Dirección" #direccion id="direccion" type="text" class="validate" value = "{{clienteDireccion}}">
+                    <label for="direccion">Dirección</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s6">
+                    <input placeholder="Teléfono" #telefono id="telefono" type="text" class="validate" value = "{{clienteTelefono}}">
+                    <label for="telefono">Teléfono</label>
+                </div>
+                <div class="input-field col s6">
+                    <input placeholder="C.U.I.T" #cuit id="cuit" type="text" class="validate" value = "{{clienteCuit}}">
+                    <label for="telefono">C.U.I.T.</label>
+                </div>
+              </div>
+            </form>
           </div>
           <div class="modal-footer">
-            <a class="waves-effect waves-green btn-flat" (click)="closeModal()">Cerrar</a>
-            <a class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
+            <a class="waves-effect waves-green btn-flat" (click)="guardarEdicion(id.value,
+                                                                                 nombre.value,
+                                                                                 direccion.value,
+                                                                                 telefono.value,
+                                                                                 cuit.value)">Grabar</a>
+          </div>
+        </div>
+      </td>
+      <td>
+        <!-- Eliminar confirmacion -->
+        <a class="waves-effect waves-light btn" (click)="openModalEliminar(item.id, item.nombre)">Eliminar</a>
+        <div id="modalBorrar" class="modal" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions2">
+          <div class="modal-content">
+            <input type="hidden" #id value="{{clienteId}}">
+            <p>Está seguro de Eliminar :</p>
+            <p> {{clienteId}} - {{clienteNombre}} </p>
+          </div>
+          <div class="modal-footer">
+              <a class="waves-effect waves-green btn-flat" (click)="cancelarEliminar()">Cancelar</a>
+              <a class="waves-effect waves-green btn-flat" (click)="eliminarCliente(id)">Eliminar</a>
           </div>
         </div>
       </td>
     </tr>
   </tbody>
 </table>
+<!-- Modal para agregar cliente con boton al final de la lista -->
+<a class="waves-effect waves-light btn" (click)="openModalAgregar()">Agregar Cliente</a>
+  <!-- Agregar Cliente -->
+  <div id="modalagregar" class="modal" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="agregarClienteModal">
+    <div class="modal-content">
+      <form class="col s12">
+        <div class="row">
+          <div class="input-field col s6">
+            <input placeholder="Nombre Cliente" #nombre id="nombre" type="text" class="validate">
+            <label for="nombre">Nombre / Razón Social</label>
+          </div>
+          <div class="input-field col s6">
+            <input placeholder="Dirección" #direccion id="direccion" type="text" class="validate">
+            <label for="direccion">Dirección</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <input placeholder="Teléfono" #telefono id="telefono" type="text" class="validate" value = "{{clienteTelefono}}">
+            <label for="telefono">Teléfono</label>
+          </div>
+          <div class="input-field col s6">
+            <input placeholder="C.U.I.T" #cuit id="cuit" type="text" class="validate" value = "{{clienteCuit}}">
+            <label for="telefono">C.U.I.T.</label>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+        <a class="waves-effect waves-green btn-flat" (click)="cancelarAgregar()">Cancelar</a>
+      <a class="waves-effect waves-green btn-flat" (click)="agregarCliente(nombre,
+                                                                           direccion,
+                                                                           telefono,
+                                                                           cuit)">Grabar</a>
+    </div>
+  </div>

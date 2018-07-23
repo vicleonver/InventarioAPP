@@ -22,8 +22,8 @@ export class ClientesService {
     return this.afs.collection('clientes').snapshotChanges();
   }
 
-  borrarCliente(cliente: Clientes){
-    this.clientesDoc = this.afs.doc(`clientes/${cliente.id}`);
+  borrarCliente(id: string){
+    this.clientesDoc = this.afs.doc(`clientes/${id}`);
     this.clientesDoc.delete();
   }
 
