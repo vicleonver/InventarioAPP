@@ -1,8 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 /* Integracion con Materialize CSS */
 import { MaterializeModule } from 'angular2-materialize';
+
 /* Importacion de Router */
 import { AppRoutingModule } from './app-routing/app-routing.module';
 
@@ -24,6 +26,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 /* Servicios */
 import { ClientesService } from './servicios/clientes.service';
+import { FilterPipe } from './pipes/filtro-clientes.pipe';
 
 @NgModule({
   declarations: [
@@ -33,10 +36,12 @@ import { ClientesService } from './servicios/clientes.service';
     ProductosComponent,
     RubrosComponent,
     ClientesComponent,
-    ProveedoresComponent
+    ProveedoresComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     MaterializeModule,
     AngularFireDatabaseModule,

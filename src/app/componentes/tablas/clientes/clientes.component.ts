@@ -17,7 +17,7 @@ export class ClientesComponent implements OnInit {
 
 
   listaClientes = [];
-
+  
   registroCliente: Clientes = {
     id: '',
     nombre: '',
@@ -70,7 +70,6 @@ export class ClientesComponent implements OnInit {
     this.modalActions2.emit({action: 'modal', params: ['close']});
   }
   eliminarCliente(id) {
- 
     this.modalActions2.emit({action: 'modal', params: ['close']});
     this.servicio.borrarCliente(id);
   }
@@ -86,11 +85,15 @@ export class ClientesComponent implements OnInit {
       telefono: telefono.value,
       cuit: cuit.value
     }
-    
     this.servicio.agregarCliente(this.registroCliente);
     this.agregarClienteModal.emit({action: 'modal', params:['close']});
   }
   cancelarAgregar() {
     this.agregarClienteModal.emit({action: 'modal', params: ['close']});
+  }
+
+  filtrarDatos(nombre: string){
+    const filtrado = this.listaClientes.filter((x) => x.nombre.toUpperCase().indexOf(nombre) >= 0);
+    console.log(filtrado);
   }
 }
