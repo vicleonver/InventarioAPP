@@ -19,7 +19,7 @@ export class ProveedoresService {
   }
 
   obtenerProveedores(){
-    this.afs.collection('clientes').snapshotChanges();
+    this.afs.collection('proveedores').snapshotChanges();
   }
   borrarProveedor(id: string) {
     console.log(id);

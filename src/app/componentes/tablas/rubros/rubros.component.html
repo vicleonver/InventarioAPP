@@ -1,3 +1,79 @@
-<p>
-  rubros works!
-</p>
+<div class="row">
+    <input id="inputSearch" placeholder="Buscar Rubro" onkeyup="buscar()">
+  </div>
+  <table id="tableSearch" class="highlight responsive-table">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of listaRubros">
+        <td> {{item.nombre}} </td>
+        <td> 
+          <!-- Boton para editar -->
+          <a class="waves-effect waves-light btn" (click)="openModalEditar(item.id, item.nombre)">Editar</a>
+   
+          <!-- Editar -->
+          <div id="modaleditar" class="modal" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="editarRubroModal">
+            <div class="modal-content">
+              <form class="col s12">
+                <div class="row">
+                  <input type="hidden" #id value="{{rubroId}}">
+                  <div class="input-field col s6">
+                    <input placeholder="Nombre Rubro" #nombre id="nombre" type="text" class="validate" value = "{{rubroNombre}}">
+                    <label for="nombre">Nombre de Rubro</label>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <a class="waves-effect waves-green btn-flat" (click)="cancelarEditar()">Cancelar</a>
+              <a class="waves-effect waves-green btn-flat" (click)="guardarEdicion(rubroId, nombre.value)">Grabar</a>
+            </div>
+          </div>
+        </td>
+        <td>
+          <!-- Eliminar confirmacion -->
+          <a class="waves-effect waves-light btn red accent-1" (click)="openModalEliminar(item.id, item.nombre)">Eliminar</a>
+          <div id="modalBorrar" class="modal red lighten-4" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="eliminarRubroModal">
+            <div class="modal-content">
+              <input type="hidden" #id value="{{rubroId}}">
+              <h3>Se va a ELIMINAR el registro :</h3>
+              <h3> {{rubroNombre}} </h3>
+              <br>
+              <p>Si confirma la acción se borrará definitivamente el dato.</p>
+              <h4 class="red darken-4" style="text-align: center !important;">¿ESTA SEGURO?</h4>
+            </div>
+            <div class="modal-footer">
+                <a class="waves-effect waves-green btn-flat" (click)="cancelarEliminar()">Cancelar</a>
+                <a class="waves-effect waves-green btn-flat" (click)="eliminarRubro(id)">Eliminar</a>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- Modal para agregar cliente con boton al final de la lista -->
+  <a class="waves-effect waves-light btn" (click)="openModalAgregar()" style="margin-top: 10px !important; ">Agregar Rubro</a>
+    <!-- Agregar Cliente -->
+    <div id="modalagregar" class="modal" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="agregarRubroModal">
+      <div class="modal-content">
+        <form class="col s12">
+          <div class="row">
+            <div class="input-field col s6">
+              <input placeholder="Nombre Rubro" #nombre id="nombre" type="text" class="validate" value="">
+              <label for="nombre">Nombre Rubro</label>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+          <a class="waves-effect waves-green btn-flat" (click)="cancelarAgregar()">Cancelar</a>
+        <a class="waves-effect waves-green btn-flat" (click)="agregarRubro(nombre)">Grabar</a>
+      </div>
+    </div>
+  
+  

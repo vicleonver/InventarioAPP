@@ -95,6 +95,4 @@ export class ClientesComponent implements OnInit {
     this.agregarClienteModal.emit({action: 'modal', params: ['close']});
   }
 
- 
-  
 }
