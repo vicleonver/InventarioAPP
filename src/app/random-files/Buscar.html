@@ -1,0 +1,18 @@
+Tabla de tu componente Ejemplo
+
+    <input  class="form-control" id="myInput" type="text" placeholder="Buscar..">
+<div class="card">   
+  <table class="table table-hover table-responsive-md table-fixed">
+      <tbody id="myTable">
+          <tr  *ngFor="let partidos of PartidosService.partidos" >
+            <td id = "fecha">{{partidos.fecha}}</td>
+            <td id = "equipo1" ng-style="color:'red'"  >{{ partidos.equipo1 }}<br><p id="uno" >{{ partidos.resultado1 > partidos.resultado2 ? "Gano": "Perdio" }}</p></td>
+            <td id = "resultado1">{{ partidos.resultado1 }}</td>
+            <td id = "resultado2">{{ partidos.resultado2 }}</td>
+            <td id = "equipo2">{{ partidos.equipo2 }}<br><p id="dos">{{ partidos.resultado1 < partidos.resultado2 ? "Gano": "Perdio" }}</p></td>
+          <td></td>
+      </tr>
+      </tbody>
+   </table>
+
+</div>
