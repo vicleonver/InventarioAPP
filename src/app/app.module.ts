@@ -26,7 +26,6 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 /* Servicios */
 import { ClientesService } from './servicios/clientes.service';
-import { FilterPipe } from './pipes/filtro-clientes.pipe';
 
 @NgModule({
   declarations: [
@@ -36,8 +35,7 @@ import { FilterPipe } from './pipes/filtro-clientes.pipe';
     ProductosComponent,
     RubrosComponent,
     ClientesComponent,
-    ProveedoresComponent,
-    FilterPipe
+    ProveedoresComponent
   ],
   imports: [
     BrowserModule,

@@ -1,16 +1,15 @@
-<div class="input-field col s6">
-  <input placeholder="Nombre Cliente" (keyup)="filtrarDatos($event.target.value)">
-  
+<div class="row">
+  <input id="inputSearch" placeholder="Buscar Cliente" onkeyup="buscar()">
 </div>
-<table class="highlight responsive-table">
+<table id="tableSearch" class="highlight responsive-table">
   <thead>
     <tr>
       <th>Nombre</th>
       <th>Dirección</th>
       <th>Teléfono</th>
       <th>CUIT</th>
-      <th>Modificar</th>
-      <th>Eliminar</th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -28,7 +27,7 @@
                                                                          item.cuit)">Editar</a>
  
         <!-- Editar -->
-        <div id="modaleditar" class="modal" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions">
+        <div id="modaleditar" class="modal" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="editarClienteModal">
           <div class="modal-content">
             <form class="col s12">
               <div class="row">
@@ -55,6 +54,7 @@
             </form>
           </div>
           <div class="modal-footer">
+            <a class="waves-effect waves-green btn-flat" (click)="cancelarEditar()">Cancelar</a>
             <a class="waves-effect waves-green btn-flat" (click)="guardarEdicion(id.value,
                                                                                  nombre.value,
                                                                                  direccion.value,
@@ -65,12 +65,15 @@
       </td>
       <td>
         <!-- Eliminar confirmacion -->
-        <a class="waves-effect waves-light btn" (click)="openModalEliminar(item.id, item.nombre)">Eliminar</a>
-        <div id="modalBorrar" class="modal" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions2">
+        <a class="waves-effect waves-light btn red accent-1" (click)="openModalEliminar(item.id, item.nombre)">Eliminar</a>
+        <div id="modalBorrar" class="modal red lighten-4" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="eliminarClienteModal">
           <div class="modal-content">
             <input type="hidden" #id value="{{clienteId}}">
-            <p>Está seguro de Eliminar :</p>
-            <p> {{clienteId}} - {{clienteNombre}} </p>
+            <h3>Se va a ELIMINAR el registro :</h3>
+            <h3> {{clienteNombre}} </h3>
+            <br>
+            <p>Si confirma la acción se borrará definitivamente el dato.</p>
+            <h4 class="red darken-4" style="text-align: center !important;">¿ESTA SEGURO?</h4>
           </div>
           <div class="modal-footer">
               <a class="waves-effect waves-green btn-flat" (click)="cancelarEliminar()">Cancelar</a>
@@ -82,7 +85,7 @@
   </tbody>
 </table>
 <!-- Modal para agregar cliente con boton al final de la lista -->
-<a class="waves-effect waves-light btn" (click)="openModalAgregar()">Agregar Cliente</a>
+<a class="waves-effect waves-light btn" (click)="openModalAgregar()" style="margin-top: 10px !important; ">Agregar Cliente</a>
   <!-- Agregar Cliente -->
   <div id="modalagregar" class="modal" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="agregarClienteModal">
     <div class="modal-content">
@@ -117,3 +120,4 @@
                                                                            cuit)">Grabar</a>
     </div>
   </div>
+

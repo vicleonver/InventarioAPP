@@ -1,3 +1,124 @@
-<p>
-  proveedores works!
-</p>
+<div class="row">
+  <input id="inputSearch" placeholder="Buscar Proveedor" onkeyup="buscar()">
+</div>
+<table id="tableSearch" class="highlight responsive-table">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Dirección</th>
+        <th>Teléfono</th>
+        <th>CUIT</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of listaProveedores">
+        <td> {{item.nombre}} </td>
+        <td> {{item.direccion}} </td>
+        <td> {{item.telefono}} </td>
+        <td> {{item.cuit}} </td>
+        <td> 
+          <!-- Boton para editar -->
+          <a class="waves-effect waves-light btn" (click)="openModalEditar(item.id,
+                                                                           item.nombre, 
+                                                                           item.direccion, 
+                                                                           item.telefono, 
+                                                                           item.cuit)">Editar</a>
+   
+          <!-- Editar -->
+          <div id="modaleditar" class="modal" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="editarProveedorModal">
+            <div class="modal-content">
+              <form class="col s12">
+                <div class="row">
+                  <input type="hidden" #id value="{{proveedorId}}">
+                  <div class="input-field col s6">
+                    <input placeholder="Nombre Proveedor" #nombre id="nombre" type="text" class="validate" value = "{{proveedorNombre}}">
+                    <label for="nombre">Nombre / Razón Social</label>
+                  </div>
+                  <div class="input-field col s6">
+                      <input placeholder="Dirección" #direccion id="direccion" type="text" class="validate" value = "{{proveedorDireccion}}">
+                      <label for="direccion">Dirección</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s6">
+                      <input placeholder="Teléfono" #telefono id="telefono" type="text" class="validate" value = "{{proveedorTelefono}}">
+                      <label for="telefono">Teléfono</label>
+                  </div>
+                  <div class="input-field col s6">
+                      <input placeholder="C.U.I.T" #cuit id="cuit" type="text" class="validate" value = "{{proveedorCuit}}">
+                      <label for="telefono">C.U.I.T.</label>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <a class="waves-effect waves-green btn-flat" (click)="cancelarEditar()">Cancelar</a>
+              <a class="waves-effect waves-green btn-flat" (click)="guardarEdicion(id.value,
+                                                                                   nombre.value,
+                                                                                   direccion.value,
+                                                                                   telefono.value,
+                                                                                   cuit.value)">Grabar</a>
+            </div>
+          </div>
+        </td>
+        <td>
+          <!-- Eliminar confirmacion -->
+          <a class="waves-effect waves-light btn red accent-1" (click)="openModalEliminar(item.id, item.nombre)">Eliminar</a>
+          <div id="modalBorrar" class="modal red lighten-4" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="eliminarProveedorModal">
+            <div class="modal-content">
+              <input type="hidden" #id value="{{proveedorId}}">
+              <h3>Se va a ELIMINAR el registro :</h3>
+              <h3> {{proveedorNombre}}  ID: {{proveedorId}}</h3>
+              <br>
+              <p>Si confirma la acción se borrará definitivamente el dato.</p>
+              <h4 class="red darken-4" style="text-align: center !important;">¿ESTA SEGURO?</h4>
+            </div>
+            <div class="modal-footer">
+                <a class="waves-effect waves-green btn-flat" (click)="cancelarEliminar()">Cancelar</a>
+                <a class="waves-effect waves-green btn-flat" (click)="eliminarProveedor(id)">Eliminar</a>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- Modal para agregar cliente con boton al final de la lista -->
+  <a class="waves-effect waves-light btn" (click)="openModalAgregar()" style="margin-top: 10px !important; ">Agregar Proveedor</a>
+    <!-- Agregar Cliente -->
+    <div id="modalagregar" class="modal" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="agregarProveedorModal">
+      <div class="modal-content">
+        <form class="col s12">
+          <div class="row">
+            <div class="input-field col s6">
+              <input placeholder="Nombre Provedor" #nombre id="nombre" type="text" class="validate">
+              <label for="nombre">Nombre / Razón Social</label>
+            </div>
+            <div class="input-field col s6">
+              <input placeholder="Dirección" #direccion id="direccion" type="text" class="validate">
+              <label for="direccion">Dirección</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s6">
+              <input placeholder="Teléfono" #telefono id="telefono" type="text" class="validate" >
+              <label for="telefono">Teléfono</label>
+            </div>
+            <div class="input-field col s6">
+              <input placeholder="C.U.I.T" #cuit id="cuit" type="text" class="validate">
+              <label for="telefono">C.U.I.T.</label>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+          <a class="waves-effect waves-green btn-flat" (click)="cancelarAgregar()">Cancelar</a>
+        <a class="waves-effect waves-green btn-flat" (click)="agregarProveedor(nombre,
+                                                                             direccion,
+                                                                             telefono,
+                                                                             cuit)">Grabar</a>
+      </div>
+    </div>
+  
+  

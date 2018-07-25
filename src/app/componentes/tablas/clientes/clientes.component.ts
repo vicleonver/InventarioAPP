@@ -11,8 +11,8 @@ import { Clientes } from '../../../modelos/clientes';
 export class ClientesComponent implements OnInit {
 
   constructor(private servicio: ClientesService) { }
-  modalActions = new EventEmitter<string|MaterializeAction>();
-  modalActions2 = new EventEmitter<string|MaterializeAction>();
+  editarClienteModal = new EventEmitter<string|MaterializeAction>();
+  eliminarClienteModal = new EventEmitter<string|MaterializeAction>();
   agregarClienteModal = new EventEmitter<string|MaterializeAction>();
 
 
@@ -39,13 +39,16 @@ export class ClientesComponent implements OnInit {
 
   }
   openModalEditar(id, nombre, direccion, telefono, cuit) {
-    this.modalActions.emit({action: 'modal', params: ['open']});
+    this.editarClienteModal.emit({action: 'modal', params: ['open']});
     this.clienteId = id;
     this.clienteNombre = nombre;
     this.clienteDireccion = direccion;
     this.clienteTelefono = telefono;
     this.clienteCuit = cuit;
 
+  }
+  cancelarEditar(){
+    this.editarClienteModal.emit({action: 'modal', params:['close']});
   }
   guardarEdicion(id, nombre, direccion, telefono, cuit) {
     /* Armo registro a editar */
@@ -58,19 +61,19 @@ export class ClientesComponent implements OnInit {
     }
     this.servicio.modificarCliente(this.registroCliente);
 
-    this.modalActions.emit({action: 'modal', params:['close']});
+    this.editarClienteModal.emit({action: 'modal', params:['close']});
   }
   openModalEliminar(id, nombre) {
     this.clienteId = id;
     this.clienteNombre = nombre;
 
-    this.modalActions2.emit({action: 'modal', params:['open']});
+    this.eliminarClienteModal.emit({action: 'modal', params:['open']});
   }
   cancelarEliminar() {
-    this.modalActions2.emit({action: 'modal', params: ['close']});
+    this.eliminarClienteModal.emit({action: 'modal', params: ['close']});
   }
   eliminarCliente(id) {
-    this.modalActions2.emit({action: 'modal', params: ['close']});
+    this.eliminarClienteModal.emit({action: 'modal', params: ['close']});
     this.servicio.borrarCliente(id);
   }
 
@@ -92,8 +95,6 @@ export class ClientesComponent implements OnInit {
     this.agregarClienteModal.emit({action: 'modal', params: ['close']});
   }
 
-  filtrarDatos(nombre: string){
-    const filtrado = this.listaClientes.filter((x) => x.nombre.toUpperCase().indexOf(nombre) >= 0);
-    console.log(filtrado);
-  }
+ 
+  
 }
