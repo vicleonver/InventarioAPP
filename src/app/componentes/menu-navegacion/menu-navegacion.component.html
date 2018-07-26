@@ -1,4 +1,4 @@
-
+<div class="navbar-fixed">
   <nav>
     <div class="nav-wrapper">
       <div class="container">
@@ -9,17 +9,13 @@
         <!-- Dropdown Trigger -->
         <a class='dropdown-button btn red lighten-2' href='javascript:void(0);' data-activates='dropTablas' dropdown data-hover="true">Tablas</a>
       </ul>
+      <ul id='dropTablas' class='dropdown-content'>
+        <li><a href="javascript:void(0);" routerLink="tbl-productos">Productos</a></li>
+        <li><a href="javascript:void(0);" routerLink="tbl-rubros">Rubros</a></li>
+        <li><a href="javascript:void(0);" routerLink="tbl-proveedores">Proveedores</a></li>
+        <li><a href="javascript:void(0);" routerLink="tbl-clientes">Clientes</a></li>
+      </ul>
     </div>
   </nav>
   <script> $(".button-collapse").sideNav(); </script>
-
-
-<!-- Dropdown Structure -->
-<ul id='dropTablas' class='dropdown-content'>
-    <li><a href="javascript:void(0);" routerLink="tbl-productos">Productos</a></li>
-    <li><a href="javascript:void(0);" routerLink="tbl-rubros">Rubros</a></li>
-    <li><a href="javascript:void(0);" routerLink="tbl-proveedores">Proveedores</a></li>
-    <li><a href="javascript:void(0);" routerLink="tbl-clientes">Clientes</a></li>
-
-</ul>
-      
+</div>

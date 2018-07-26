@@ -26,6 +26,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 /* Servicios */
 import { ClientesService } from './servicios/clientes.service';
+import { FooterComponent } from './componentes/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { ClientesService } from './servicios/clientes.service';
     ProductosComponent,
     RubrosComponent,
     ClientesComponent,
-    ProveedoresComponent
+    ProveedoresComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

@@ -31,7 +31,7 @@ export class RubrosService {
     this.rubrosDoc.update(rubro);
   }
   obtenerRubrosObservable() {
-    this.rubrosObs = this.afs.collection('rubros').snapshotChanges().map(changes => {
+    this.rubrosObs = this.afs.collection('rubros', ref => ref.orderBy('nombre')).snapshotChanges().map(changes => {
       return changes.map(a => {
         const data = a.payload.doc.data() as Rubros;
         data.id = a.payload.doc.id;
